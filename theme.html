@@ -1,123 +1,65 @@
 <!DOCTYPE html>
-<head>
-<meta charset="utf-8">
-<title>
-{% if is_login %}Login
-{% elif is_home %}{{ site.author }}
-{% elif is_tag %}{{ tag }}
-{% elif post %}{{ post.title }}
-{% endif %}
-| {{ site.name }}
-</title>
-{{ header_meta }}
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href='http://fonts.googleapis.com/css?family=Bentham|PT+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-<link href="{{ static('themes/_assets/fontawesome/css/font-awesome.min.css') }}" rel="stylesheet" />
-<link href="https://dl.dropbox.com/s/g50unvxd005uazw/style.css" rel="stylesheet" />
-{% if site.analytics %}
-<script>
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', '{{ site.analytics }}']);
-_gaq.push(['_trackPageview']);
-(function() {
-var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
-</script>
-{% endif %}
-</head>
+<html prefix="og: http://ogp.me/ns#" xmlns:og="http://ogp.me/ns#">
+  <head>
+    <meta charset="utf-8">
+    <title>
+      {% if is_login %}Login
+      {% elif is_home %}{{ site.author }}
+      {% elif is_tag %}{{ tag }}
+      {% elif post %}{{ post.title }}
+      {% endif %}
+      | {{ site.name }}
+    </title>
+ 
+    {{ header_meta }}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+    <link href='http://fonts.googleapis.com/css?family=Bentham|PT+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href="{{ static('themes/_assets/fontawesome/css/font-awesome.min.css') }}" rel="stylesheet" />
+    <link href="https://dl.dropbox.com/s/g50unvxd005uazw/style.css" rel="stylesheet" />
+ 
+    {% if site.analytics %}
+    <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '{{ site.analytics }}']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+    {% endif %}
+  </head>
 <body>
-{% if is_login %}
-{{ login_form }}
+     {% if is_login %}
+ 
+  {{ login_form }}
+ 
 {% else %}
+ 
 <!-- Start blog display -->
 <div class="wrapper">
-<!-- Header -->
-<div class="header_wrap">
-<header role='banner' class="site_header"{% if site.cover_photo %} style="background-image: url('{{ site.cover_photo }}'); background-repeat: no-repeat; background-position: center center;"{% endif %}>
-<a href="/"><img src="???" alt="{{ site.name }}"></a>
-<h1><a href="/">{{ site.name }}</a></h1>
-{% if site.bio %}<p><a href="/">{{ site.bio }}</a></p>{% endif %}
-</header>
+ 
+  <!-- Header -->
+  <div class="header_wrap">
+     
+    <header role='banner' class="site_header"{% if site.cover_photo %} style="background-image: url('{{ site.cover_photo }}'); background-repeat: no-repeat; background-position: center center;"{% endif %}>
+ 
+      <a href="/"><img src="https://dl.dropbox.com/s/1ckudtjd4sk6lws/logo.png" alt="{{ site.name }}"></a>
+      <h1><a href="/">{{ site.name }}</a></h1>
+      {% if site.bio %}<p><a href="/">{{ site.bio }}</a></p>{% endif %}
+ 
+    </header>
+ 
+  </div>
+ 
 </div>
-</div>
-<!-- Posts Area -->
-<main class="posts_area">
-   
-  {% if is_home or is_tag %}
-  <!-- Post list -->
  
-    {% if is_tag %}
-    <h4 class="tag_header"><span class="separator">&#8226;</span> Showing all posts tagged as {{ tag }} <span class="separator">&#8226;</span></h4>
-    {% endif %}
- 
-    {% if posts %}
-      {% for post in posts %}
- 
-        <article class="post" role="article" itemscope itemtype="http://schema.org/Article">
-          <h1 class="title"><a href="{{ post.permalink }}#post_start">{{ post.title }}</a></h1>
-          <div class="post_meta">
-            <time class="post_date" datetime="{{ post.created_at|format_date }}" itemprop="datePublished">{{ post.created_at|format_date }}</time>
-          </div>
-          <div class="postcontent_list" itemprop="articleBody" data-type-cleanup="true">
-          {{ post.content }}
-          {% if post.type == 'link' %}
-            <p class="link_display"><a href="{{ post.url }}"><i class="icon-link"></i> {{ post.url }}</a></p>
-          {% endif %}
-          <div class="after_post"><a href="{{ post.permalink }}#post_start">Read More &raquo;</a></div>
-          </div>
-        </article>
- 
-      {% endfor %}
-      {% if not is_tag %}
-      <div class="pagination">
-          {% if pagination.prev %}<a href="{{ pagination.prev }}" class="pagination_prev"><i class="icon-hand-left"></i> Prev</a>{% endif %}
-          {% if pagination.next %}<a href="{{ pagination.next }}" class="pagination_next">Next <i class="icon-hand-right"></i></a>{% endif %}
-      </div>
-      {% endif %}
-    {% endif %}
- 
-  {% else %}
-  <!-- Single post -->
- 
-    <article class="post" id="post_start" role="article" itemscope itemtype="http://schema.org/Article">
-      <h1 class="title">{{ post.title }}</h1>
-      <div class="post_meta">
-        <time class="post_date" datetime="{{ post.created_at|format_date }}" itemprop="datePublished">{{ post.created_at|format_date }}</time>
-        {% if post.tags %}
-        <span class="separator">&#8226;</span>
-        <div class="post_tags">
-          <a href="/tag/{{ tag }}">{{ post.tags|format_tags(delimiter=', ', humanize=True, link=True) }}</a>
-        </div>
-        {% endif %}
-      </div>
-      <div class="postcontent_single" itemprop="articleBody" data-type-cleanup="true">
-      {{ post.content }}
-      {% if post.type == 'link' %}
-        <p class="link_display"><a href="{{ post.url }}"><i class="icon-link"></i> {{ post.url }}</a></p>
-      {% endif %}
-      </div>
-      <div class="after_post">{{ theme.social.bar }}</div>
-    </article>
- 
-  {% endif %}
- 
-</main>
-<!-- Footer -->
-{% if site.twitter or site.facebook or site.googleplus %}
-<div class="social_links">
-<div class="social_col">SOCIAL:</div>
-{% if site.twitter %}<div class="social_col"><a href="{{ site.twitter }}" target="_blank">TWITTER</a></div>{% endif %}
-{% if site.facebook %}<div class="social_col"><a href="{{ site.facebook }}" target="_blank">FACEBOOK</a></div>{% endif %}
-{% if site.googleplus %}<div class="social_col"><a href="{{ site.googleplus }}" target="_blank">GOOGLE+</a></div>{% endif %}
-</div>
-{% endif %}
-<footer class="site_footer">
-2015 ©  Copyright TheFjaell &ndash; All rights reserved.
-</footer>
 <!-- End blog display -->
+ 
 {% endif %}
+ 
 {{ footer_meta }}
 </body>
 </html>
