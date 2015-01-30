@@ -115,6 +115,21 @@
  
   {% endif %}
   
+  {% if site.disqus %}
+<div class="post_comments">
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_shortname = '{{ site.disqus }}';
+    var disqus_url = '{{site.base_url}}{{ post.permalink }}';
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+</div>
+{% endif %}
+  
   {% if pages %}
 <nav><ul>
   <li><a href="{{ site.base_url }}">Home</a></li>
