@@ -28,5 +28,22 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 {% endif %}
 </head>
 <body>
+{% if is_login %}
+{{ login_form }}
+{% else %}
+<!-- Start blog display -->
+<div class="wrapper">
+<!-- Header -->
+<div class="header_wrap">
+<header role='banner' class="site_header"{% if site.cover_photo %} style="background-image: url('{{ site.cover_photo }}'); background-repeat: no-repeat; background-position: center center;"{% endif %}>
+<a href="/"><img src="https://dl.dropbox.com/s/1ckudtjd4sk6lws/logo.png" alt="{{ site.name }}"></a>
+<h1><a href="/">{{ site.name }}</a></h1>
+{% if site.bio %}<p><a href="/">{{ site.bio }}</a></p>{% endif %}
+</header>
+</div>
+</div>
+<!-- End blog display -->
+{% endif %}
+{{ footer_meta }}
 </body>
 </html>
