@@ -40,8 +40,21 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <h1><a href="/">{{ site.name }}</a></h1>
 {% if site.bio %}<p><a href="/">{{ site.bio }}</a></p>{% endif %}
 </header>
+<!-- Footer -->
+{% if site.twitter or site.facebook or site.googleplus %}
+<div class="social_links">
+<div class="social_col">SOCIAL:</div>
+{% if site.twitter %}<div class="social_col"><a href="{{ site.twitter }}" target="_blank">TWITTER</a></div>{% endif %}
+{% if site.facebook %}<div class="social_col"><a href="{{ site.facebook }}" target="_blank">FACEBOOK</a></div>{% endif %}
+{% if site.googleplus %}<div class="social_col"><a href="{{ site.googleplus }}" target="_blank">GOOGLE+</a></div>{% endif %}
+</div>
+{% endif %}
+<footer class="site_footer">
+2015 ©  Copyright TheFjaell &ndash; All rights reserved.
+</footer>
 </div>
 </div>
+
 <!-- End blog display -->
 {% endif %}
 {{ footer_meta }}
