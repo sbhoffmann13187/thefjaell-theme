@@ -114,6 +114,15 @@
     </article>
  
   {% endif %}
+  
+  {% if pages %}
+<nav><ul>
+  <li><a href="{{ site.base_url }}">Home</a></li>
+  {% for page in pages %}
+    <li><a href="{{ page.permalink }}" class="{{ set_active(page.permalink) }}">{{ page.title }}</a></li>
+  {% endfor %}
+</ul></nav>
+{% endif %}
  
 </main>
   
