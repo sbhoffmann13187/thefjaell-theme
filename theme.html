@@ -45,6 +45,17 @@
   {{ login_form }}
  
 {% else %}
+
+<!-- SDK Javascript framework --> 
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- SDK Javascript framework end--> 
  
 <!-- Start blog display -->
 <div class="wrapper">
@@ -123,6 +134,10 @@
  
   {% endif %}
   
+  <!-- facebook like -->
+  <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div>
+  <!-- facebook like end -->
+  
   {% if site.disqus %}
 <div class="post_comments">
   <div id="disqus_thread"></div>
@@ -137,6 +152,14 @@
   </script>
 </div>
 {% endif %}
+
+<div class="ssk-group">
+    <a href="" class="ssk ssk-facebook"></a>
+    <a href="" class="ssk ssk-twitter"></a>
+    <a href="" class="ssk ssk-google-plus"></a>
+    <a href="" class="ssk ssk-pinterest"></a>
+    <a href="" class="ssk ssk-tumblr"></a>
+</div>
 
   {% if pages %}
 <nav><ul>
